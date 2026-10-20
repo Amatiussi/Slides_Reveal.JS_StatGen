@@ -1,0 +1,147 @@
+---
+title: |
+  **Titulo**
+subtitle: "Subtitulo"
+author: "Autor"
+date: "data"
+date-format: "DD/MM/YYYY"
+format:
+  beamer:
+    slide-level: 3
+    include-in-header:
+      - config/config2.sty
+      - config/orientador.tex
+    pdf-engine: xelatex   # lida melhor com acentos, caracteres especiais, fontes e textos em português do que pdflatex
+    keep-tex: false    # não salvar o arquivo .tex intermediário depois de gerar o PDF
+    toc: false     # não colocar sumário 
+fontsize: 10pt
+classoption:
+  - aspectratio=43  # formato Beamer (4:3)
+---
+
+# Introdução
+## Introdução
+
+\begin{columns}[]
+
+\begin{column}{0.68\textwidth}
+\begin{itemize}
+    \setlength\itemsep{1.5em}
+
+    \item \icon ...
+    \item \icon ...
+    \item \icon ...
+
+\end{itemize}
+\end{column}
+
+\begin{column}{0.28\textwidth}
+%\centering
+%\includegraphics[
+%    width=\linewidth,
+%    height=0.68\textheight,
+%    keepaspectratio
+%]{imagens/....png}
+\end{column}
+\end{columns}
+
+
+# Objetivos
+## Objetivos
+
+Objetivos gerais...
+
+\vspace{0.4cm}
+
+\begin{itemize}
+\item \icon ...
+\item \icon ...
+\item \icon ...
+\end{itemize}
+
+# Material e Métodos
+## Material e Métodos
+
+### Material e Métodos
+
+\begin{columns}[]
+
+\begin{column}{0.68\textwidth}
+\begin{itemize}
+    \setlength\itemsep{1.5em}
+
+    \item \icon ...
+    \item \icon ...
+    \item \icon ....
+    
+\end{itemize}
+\end{column}
+
+\begin{column}{0.28\textwidth}
+%\centering
+%\includegraphics[
+%    width=\linewidth,
+%    height=0.58\textheight,
+%    keepaspectratio
+%]{imagens/....png}
+\end{column}
+\end{columns}
+
+# Resultados e Discussão 
+## Resultados e Discussão
+
+\begin{itemize}
+    \item \icon ...
+    \item \icon ...
+    \item \icon ....
+\end{itemize}
+
+# Cronograma de Execução
+## Cronograma de Execução
+
+\begin{center}
+\normalsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.25}
+
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccc}
+\hline
+Atividades & \multicolumn{2}{c}{1º Ano} & \multicolumn{2}{c}{2º Ano} \\
+\cline{2-5}
+ & 2/2025 & 1/2026 & 2/2026 & 1/2027 \\
+\hline
+Disciplinas & x & x & x &  \\
+Revisão de Literatura & x & x & x & x \\
+Recebimento e tabulação dos dados &  & x &  &  \\
+Análise dos dados e desenvolvimento da metodologia &  & x & x &  \\
+Interpretação e discussão dos resultados &  &  & x &  \\
+Escrita da dissertação &  &  & x & x \\
+Defesa da dissertação &  &  &  & x \\
+\hline
+\end{tabular}%
+}
+
+\end{center}
+
+# Agradecimento
+## 
+
+\begin{center}
+
+\vspace{1.2cm}
+
+{\Huge Obrigada!}
+
+\vspace{1.2cm}
+
+\includegraphics[height=1.5cm]{imagens/IAC.jpg}
+\hspace{0.8cm}
+\includegraphics[height=1.5cm]{imagens/CAPES.png}
+\hspace{0.8cm}
+\includegraphics[height=1.5cm]{imagens/esalq.png}
+\hspace{0.8cm}
+\includegraphics[height=1.5cm]{imagens/PPG.png}
+
+\end{center}
+

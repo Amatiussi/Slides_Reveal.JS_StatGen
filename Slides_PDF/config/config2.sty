@@ -1,0 +1,327 @@
+\ProvidesPackage{config/config2}
+\mode<presentation>
+
+% Remove os símbolos de navegação que aparecem no canto inferior
+% direito nas configurações padrão
+\setbeamertemplate{navigation symbols}{}
+
+% Pacotes
+\usepackage{xcolor}
+\usepackage{fontspec}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{enumitem}
+\usepackage{etoolbox}
+\usepackage{hyperref}
+
+% Cores
+\definecolor{colororange}{RGB}{204,102,47} % orange
+\definecolor{colordgray}{HTML}{795548} % dark gray for note
+\definecolor{colorhgray}{HTML}{212121} % heavy dark gray for normal text
+\definecolor{colorgreen}{HTML}{009688} % green
+\definecolor{colorlgray}{HTML}{FAFAFA} % background light gray
+\definecolor{colorblue}{RGB}{0,51,80} % blue
+\definecolor{colorbluelight}{RGB}{46,150,189} % blue
+
+
+% Icones
+
+\newcommand{\iconone}{
+  \begin{tikzpicture}
+    \draw [colororange] (0,0.2) -- (0.1,0.1) -- (0,0);
+    \draw [colororange] (0.1,0.2) -- (0.2,0.1) -- (0.1,0);
+  \end{tikzpicture} 
+}
+
+\newcommand{\subiconone}{
+  \begin{tikzpicture}
+    \draw [colororange] (0,0.1) -- (0.05,0.05) -- (0,0);
+    \draw [colororange] (0.05,0.1) -- (0.1,0.05) -- (0.05,0);
+  \end{tikzpicture} 
+}
+
+\newcommand{\icontwo}{
+  \begin{tikzpicture}
+    \draw [fill=colororange, thick, colororange] (1,1) rectangle (1.2,1.2);
+  \end{tikzpicture} 
+}
+
+\newcommand{\subicontwo}{
+  \begin{tikzpicture}
+    \draw [fill=colororange, thick, colororange] (1,1) rectangle (1.1,1.1);
+  \end{tikzpicture} 
+}
+
+\newcommand{\iconthree}{
+  \begin{tikzpicture}
+    \draw [ultra thick, colororange] (0,0.2) -- (0.1,0.1) -- (0,0);
+  \end{tikzpicture}
+}
+
+\newcommand{\subiconthree}{
+  \begin{tikzpicture}
+    \draw [thick, colororange] (0,0.1) -- (0.05,0.05) -- (0,0);
+  \end{tikzpicture} 
+}
+
+\newcommand{\iconfour}{
+  \begin{tikzpicture}
+    \draw [fill= colororange,colororange] (0,0) -- (0.2,0.1) -- (0,0.2) -- (0,0);
+  \end{tikzpicture}
+}
+
+\newcommand{\subiconfour}{
+  \begin{tikzpicture}
+    \draw [fill= colororange,colororange] (0,0) -- (0.1,0.05) -- (0,0.1) -- (0,0);
+  \end{tikzpicture}
+}
+
+\newcommand{\rtarrow}{$\color{colororange}{\rightarrow}$}
+
+\newcommand{\icon}{\iconfour} %%%%%% Mudar o icone aqui!!!!
+\newcommand{\subicon}{\subiconfour} %%%%% Mudar o sub icone aqui!!!
+
+% Espaço entre as linhas
+\newcommand{\linespaceone}{1}
+
+% Animações tranparentes
+\setbeamercovered{transparent}
+
+% Mudanças na estrutura dos slides
+\setbeamertemplate{frametitle}{
+  \vspace{0.40em}
+  \noindent
+  \hspace{-1.22em}
+  \tikz[overlay,remember picture,baseline=0.3em]{\fill[fill=colorblue]  (-0.3,0.05) rectangle (0,0.9); }\libertadfont\color{colororange}~~\Large\textbf{\insertframetitle}\\\hspace{0.5em} \normalsize\underline{\insertframesubtitle}}
+
+\usefonttheme[onlymath]{serif} %para usar fonte do LaTeX nas equações
+
+% Fonte do template
+
+\IfFontExistsTF{Calibri}{%
+  \setmainfont[
+    BoldFont={Calibri Bold},
+    ItalicFont={Calibri Italic},
+    BoldItalicFont={Calibri Bold Italic}
+  ]{Calibri}
+
+  \newfontfamily{\templatefont}[
+    BoldFont={Calibri Bold},
+    ItalicFont={Calibri Italic},
+    BoldItalicFont={Calibri Bold Italic}
+  ]{Calibri}
+
+  \newfontfamily{\libertadfont}[
+    BoldFont={Calibri Bold},
+    ItalicFont={Calibri Italic},
+    BoldItalicFont={Calibri Bold Italic}
+  ]{Calibri}
+}{%
+  \setmainfont{TeX Gyre Heros}
+
+  \newfontfamily{\templatefont}{TeX Gyre Heros}
+
+  \newfontfamily{\libertadfont}{TeX Gyre Heros}
+}
+
+\setbeamerfont{frametitle}{family=\templatefont,shape=\itshape}
+\setbeamerfont{framesubtitle}{family=\templatefont,shape=\itshape}
+\setbeamerfont{block title}{family=\templatefont,shape=\itshape}
+\setbeamerfont{section in head}{family=\templatefont,series=\bfseries}
+\setbeamerfont{normal text}{size=\normalsize,family=\templatefont}
+\setbeamerfont{section in toc}{size=\normalsize,family=\templatefont}
+\setbeamerfont{subsection in toc}{size=\normalsize,family=\templatefont}
+
+% Sumário
+
+\setbeamertemplate{section in toc}{%
+  \usebeamercolor[fg]{circle}%
+  \makebox[1em][r]{\color{colororange}\icon}%
+  \parbox[t]{\dimexpr\linewidth-1em}{\rule{0pt}{.55cm}\color{colorblue}\inserttocsection}%
+}
+
+\setbeamertemplate{subsection in toc}{%
+  \usebeamercolor[fg]{item}%
+  \makebox[2em][r]{\color{colororange}\subicon}%
+  \parbox[t]{\dimexpr\linewidth-0.5em}{\rule{0pt}{.2cm}\scriptsize\color{colorblue}\inserttocsubsection}%
+}
+
+% Contagem dos slides
+\newcounter{totalfr}
+\setbeamertemplate{footline}{
+  \ifnum\inserttotalframenumber=1
+  \setcounter{totalfr}{2}
+  \else
+  \setcounter{totalfr}{\inserttotalframenumber}
+  \fi
+  \hfill{
+    \tikz{
+      \filldraw[fill=colororange!40, draw=colororange!10]  (0,0) -- (0.2,0) arc (0:{\value{framenumber}*(360/(\value{totalfr}))}:0.2) -- (0,0); 
+      \node at (0,0) {\normalsize \color{colorblue}\scriptsize{\bf\insertframenumber}};
+    }
+  }
+  \hspace{2em}
+  \vspace*{1em}
+}
+
+% Definição dos itens e blocos
+
+\newenvironment{baseitemize}
+               {\itemize[leftmargin=*]}
+               {\enditemize}
+               
+\newenvironment{fullpageitemize}
+               {\itemize[nolistsep,itemsep=\fill,leftmargin=*]}
+               {\vfill\enditemize}
+                              
+\newenvironment{orangeblock}{%
+  \setbeamercolor{block body}{bg=colororange!15, fg=black}
+  \setbeamercolor{block title}{bg=colororange,fg=white}
+  \begin{block}}{\end{block}}
+
+\newenvironment{blueblock}{%
+  \setbeamercolor{block body}{bg=colorblue!15, fg=black}
+  \setbeamercolor{block title}{bg=colorblue,fg=white}
+  \begin{block}}{\end{block}}
+
+
+
+% Informações adicionais no título
+
+\let\insertsupervisor\relax
+\mode<all>
+    {
+      \newcommand\supervisor[1]{\def\insertsupervisor{#1}}
+      \titlegraphic{}
+    }
+
+% Cores e fontes do slide título
+\setbeamercolor{title}{fg=colororange}
+\setbeamercolor{subtitle}{fg=colorblue}
+\setbeamercolor{author}{fg=colorblue}
+\setbeamercolor{supervisor}{fg=colorblue} 
+\setbeamercolor{date}{fg=colororange} 
+\setbeamercolor{structure}{fg=colorblue}
+
+\setbeamerfont{title}{family=\libertadfont, size=\large}
+\setbeamerfont{subtitle}{family=\libertadfont, size= \footnotesize}
+\setbeamerfont{author}{family=\libertadfont, size=\normalsize}
+\setbeamerfont{supervisor}{family=\libertadfont, size= \footnotesize}
+\setbeamerfont{date}{family=\libertadfont, size= \scriptsize}
+
+
+% Logo no canto superior direito de todos os slides, exceto na capa
+
+\logo{%
+  \ifnum\value{framenumber}>1
+    \includegraphics[height=1cm]{imagens/Icon.jpg}\vspace{220pt}%
+  \fi
+}
+
+% Formatação do slide título
+
+\defbeamertemplate*{title page}{customized}[1][]
+                   {
+                     % Logo da universidade no lado esquerdo
+                     \begin{textblock*}{4cm}(0.7cm,0.55cm)
+                       \includegraphics[height=1cm]{imagens/logoESALQ.png}
+                     \end{textblock*}
+
+                     % Logo do laboratório no lado direito (adaptável a 4:3 e 16:9)
+                     \begin{textblock*}{4cm}(\dimexpr\paperwidth-4.7cm\relax,0.55cm)
+                       \raggedleft
+                       \includegraphics[width=3.8cm,height=1cm,keepaspectratio]{imagens/LogoFundoTransp.jpg}
+                     \end{textblock*}
+
+                     \centering
+                     \vfill
+                         {\vspace{2.4cm}\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}
+  \vfill
+      {\vspace{0.4cm}\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
+      \vfill
+          {\vspace{0.8cm}\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor}\\
+          {\vspace{0.5cm}\usebeamerfont{supervisor}\usebeamercolor[fg]{supervisor}\insertsupervisor\par}
+          \vfill
+              {\vspace{0.9cm}\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}
+              \vfill
+                   }
+                   
+% Adicional para os itens poderem ser enumerados
+
+\newcommand{\circled}[2][]{%
+  \tikz[baseline=(char.base)]{%
+    \node[shape = circle, draw, inner sep = 0.5pt]
+    (char) {\phantom{\ifblank{#1}{#2}{#1}}};%
+    \node at (char.center) {\makebox[0pt][c]{#2}};}}
+\robustify{\circled}
+
+\newcommand{\dcircled}[1]{\circled[00]{#1}}
+
+% Slides com fundo diferente ou com imagem de fundo
+
+\newcommand{\framecard}[2][colorblue]{
+  \tikz[overlay, remember picture] {
+    \fill [#1] (current page.south west) rectangle (100,100);
+    \node [at=(current page.center)] {#2};
+  }
+  \thispagestyle{empty}
+}
+
+\newcommand{\framepic}[3][1]{
+  \tikz[overlay, remember picture] {
+    \node[opacity=#1, at=(current page.center)] {
+      \includegraphics[width=\paperwidth]{#2};
+    };
+    \node [at=(current page.center)] {#3};
+  }
+  \thispagestyle{empty}
+}
+
+%\newcommand{\framecard}[2][colorblue]{
+%  {\setbeamercolor{background canvas}{bg=#1}
+%    \begin{frame}[plain]
+%      \vfill
+%      \begin{center}
+%        {#2}
+%      \end{center}
+%      \vfill
+%    \end{frame}
+%  }
+%}
+
+%\newcommand{\framepic}[3][1]{
+%  {
+%    \usebackgroundtemplate{%
+%      \tikz[overlay,remember picture] \node[opacity=#1, at=(current page.center)] {
+%        \includegraphics[width=\paperwidth]{#2}};
+%    }
+%    \begin{frame}
+%      #3
+%    \end{frame}
+%  }
+%}
+
+
+% Cor das citações
+
+\let\oldcite=\cite                                                              
+\renewcommand{\cite}[1]{\textcolor[RGB]{0,51,80}{\oldcite{#1}}}
+
+% Cor dos links
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor= colorbluelight,
+  linkcolor= colorblue % cor das citações e dos links do sumário
+  %  allbordercolors= colorbluelight
+}
+
+\AtBeginSection[]{}
+\AtBeginSubsection[]{}
+
+\renewcommand{\figurename}{Figura}
+\renewcommand\tablename{Tabela}
