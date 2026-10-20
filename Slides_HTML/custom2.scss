@@ -1,0 +1,980 @@
+/*
+  Organização:
+  1. Variáveis gerais em scss:defaults
+  2. Regras por componente em scss:rules
+  3. Ajustes específicos de impressão/PDF no final
+
+  Para alterar cores globalmente: mudar $orange, $blue e $bluelight no início,
+*/
+
+/*-- scss:defaults --*/
+
+/* =========================================================
+   PALETA E TIPOGRAFIA
+   ========================================================= */
+
+$orange:       #cc662f;                   // laranja principal: títulos, bullets e destaques
+$blue:         #003350;                   // azul-marinho principal
+$bluelight:    #2e96bd;                   // azul-claro: links
+$orange-light: rgba(204, 102, 47, 0.12);  // fundo suave dos blocos laranja
+$blue-light:   rgba(0, 51, 80, 0.10);     // fundo suave dos blocos azuis
+
+$body-bg:                      #ffffff;    // fundo geral dos slides
+$body-color:                   #212121;    // cor padrão do texto
+$link-color:                   $bluelight; // cor padrão de links
+$presentation-heading-color:   $orange;    // cor-base dos headings
+$font-family-sans-serif:       Calibri;    // fonte principal
+$presentation-font-size-root:  30px;       // tamanho-base da apresentação
+$presentation-h1-font-size:    1.5em;
+$presentation-h2-font-size:    1.5em;
+$presentation-h3-font-size:    1em;
+
+$code-block-bg:           #f2f2f2; // fundo cinza-claro dos chunks
+$code-block-border-color: #d0d0d0; // borda dos chunks
+
+
+/*-- scss:rules --*/
+
+
+/* =========================================================
+   CAPA AUTOMÁTICA DO QUARTO
+   ========================================================= */
+
+.reveal #title-slide {
+  position: relative;
+  text-align: center;
+}
+
+
+/* Logo grande da capa */
+.reveal #title-slide::before {
+  content: "";
+  position: absolute;
+
+  /* posição do logo:
+     diminuir = sobe
+     aumentar = desce */
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 300px;
+  height: 125px;
+
+  background-image: url("imagens/logo.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  margin: 0;
+}
+
+
+/* Título vindo de title: no YAML */
+.reveal #title-slide .title {
+  position: absolute;
+
+  /* posição vertical do título */
+  top: 255px;
+
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 75%;
+  margin: 0 !important;
+
+  color: $orange !important;
+  font-size: 1.3em;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+}
+
+
+/* Subtítulo vindo de subtitle: no YAML */
+.reveal #title-slide .subtitle {
+  position: absolute;
+
+  /* posição vertical do subtítulo */
+  top: 340px;
+
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 80%;
+  margin: 0 !important;
+
+  color: $blue !important;
+  font-size: 0.8em;
+  font-weight: 400;
+  line-height: 1.3;
+  text-align: center;
+}
+
+
+/* Bloco de autor(es) criado pelo Quarto */
+.reveal #title-slide .quarto-title-authors,
+.reveal #title-slide .author {
+  position: absolute;
+
+  /* posição vertical do autor */
+  top: 480px;
+
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 80%;
+  margin: 0 !important;
+
+  color: $blue !important;
+  font-size: 0.95em;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  justify-content: center;
+}
+
+.reveal #title-slide .quarto-title-author,
+.reveal #title-slide .quarto-title-author-name {
+  color: $blue !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: center;
+}
+
+
+/* Data da capa — vem de date: no YAML */
+.reveal #title-slide .date {
+  position: absolute;
+
+  /* posição vertical da data:
+     o slide padrão tem 700 px de altura */
+  top: 650px;
+
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 80%;
+  margin: 0 !important;
+
+  color: $orange !important;
+  font-size: 0.70em;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
+}
+
+
+/*
+  Esconde o logo pequeno global apenas quando a capa está ativa.
+  Não altera o layout dos outros slides.
+*/
+html:not(.print-pdf) body:has(#title-slide.present) .reveal .slide-logo {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Orientador da capa */
+.reveal #title-slide::after {
+  content: "Orientador: Antonio Augusto Franco Garcia";
+
+  position: absolute;
+  top: 545px;
+
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 80%;
+  margin: 0;
+
+  color: $blue;
+  font-size: 0.75em;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: center;
+}
+
+
+/* =========================================================
+   LOGO FIXA
+   ========================================================= */
+
+.reveal .slide-logo {
+  position: fixed !important;
+  top: 8px !important;
+  right: 8px !important;
+  bottom: auto !important;
+  left: auto !important;
+
+  max-height: 58px !important; // tamanho máximo do logo nos slides
+
+  margin: 0 !important;
+  z-index: 50 !important;
+}
+
+
+/* =========================================================
+   TÍTULOS DOS SLIDES
+   ========================================================= */
+
+.reveal .slides section:not(#title-slide) > h2 {
+  color: $orange !important;
+  font-weight: 700;
+
+  font-size: 1.3em;     // tamanho do título dos slides
+
+  margin: 0 0 1.5em 0; // espaço abaixo do título
+  padding: 0.25em 0.5em 0.25em 1.1em;
+
+  position: relative;
+  line-height: 1.2;
+}
+
+
+/* Barra azul vertical do título */
+.reveal .slides section:not(#title-slide) > h2::before {
+  content: "";
+
+  position: absolute;
+  left: 0;
+
+  top: -0.35em;
+  bottom: -0.35em;
+
+  width: 18px; // espessura da barra azul
+
+  background-color: $blue !important;
+}
+
+
+/* =========================================================
+   SUBTÍTULO LOGO ABAIXO DO TÍTULO
+   ========================================================= */
+
+.reveal .slides section:not(#title-slide) > h2:has(+ .slide-subtitle) {
+  margin-bottom: 0.05em !important;
+}
+
+
+.reveal .slides section:not(#title-slide) > h2 + .slide-subtitle {
+  color: $blue;
+
+  font-size: 0.6em;
+  font-weight: 600;
+  font-style: italic;
+
+  margin-top: 0 !important;
+  margin-bottom: 2em !important;
+
+  padding-left: 48px;
+
+  line-height: 1.2;
+}
+
+
+.reveal .slides section:not(#title-slide) > h2 + .slide-subtitle p {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+
+/* =========================================================
+   LISTAS
+   ========================================================= */
+
+.reveal ul,
+.reveal ul ul {
+  list-style: none !important;
+
+  padding-left: 1.6em;
+  margin: 0.25em 0;
+}
+
+
+.reveal ul li,
+.reveal ul ul li {
+  position: relative;
+
+  margin: 0.22em 0;
+
+  list-style-type: none !important;
+}
+
+
+.reveal ul li::marker,
+.reveal ul ul li::marker {
+  content: "";
+}
+
+
+/* Tópico principal */
+.reveal ul > li::before {
+  content: "▶";
+
+  color: $orange;
+
+  font-size: 0.55em;
+
+  position: absolute;
+  left: -1.5em;
+  top: 0.35em;
+}
+
+
+/* Subtópicos */
+.reveal ul ul {
+  margin-top: 0.15em;
+  padding-left: 1.3em;
+}
+
+
+.reveal ul ul > li {
+  font-size: 0.9em;
+  line-height: 1.25;
+}
+
+
+.reveal ul ul > li::before {
+  content: "▸";
+
+  color: $orange;
+
+  font-size: 0.5em;
+
+  position: absolute;
+  left: -1.3em;
+  top: 0.32em;
+}
+
+
+/* =========================================================
+   CÓDIGO
+   ========================================================= */
+
+/* Caixa do chunk */
+.reveal div.sourceCode {
+  background-color: $code-block-bg !important;
+
+  border: 1px solid $code-block-border-color;
+  border-radius: 4px;
+
+  width: 92%; // largura do chunk
+
+  margin-left: auto;
+  margin-right: auto;
+
+  box-sizing: border-box;
+}
+
+
+/* Código dentro do chunk */
+.reveal div.sourceCode pre.sourceCode {
+  background-color: transparent !important;
+
+  font-size: 0.5em; // tamanho da fonte
+
+  padding: 0.5em 0.7em;
+  margin: 0;
+}
+
+
+/* Botão de código recolhível */
+.reveal details.code-fold > summary,
+.reveal details.code-fold > summary::marker {
+  color: $orange !important;
+}
+
+
+/* =========================================================
+   CORES UTILITÁRIAS
+   ========================================================= */
+
+.orange {
+  color: $orange;
+}
+
+.blue {
+  color: $blue;
+}
+
+.verde {
+  color: green;
+}
+
+.vermelho {
+  color: red;
+}
+
+
+/* =========================================================
+   COLUNAS
+   ========================================================= */
+
+.reveal .columns {
+  gap: 24px;
+  align-items: stretch;
+}
+
+
+.reveal .columns.equal-blocks {
+  display: flex;
+
+  gap: 24px;
+  align-items: stretch;
+}
+
+
+.reveal .columns.equal-blocks > .column {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* =========================================================
+   BLOCOS LARANJA E AZUL
+   ========================================================= */
+
+.orangeblock,
+.blueblock {
+  margin: 0.3em 1.5em;
+
+  border-radius: 2px;
+
+  overflow: hidden;
+
+  width: auto;
+
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+
+  box-sizing: border-box;
+}
+
+
+/* Cabeçalho dos blocos */
+.orangeblock .block-title,
+.blueblock .block-title {
+  color: white;
+
+  font-weight: bold;
+  font-size: 0.75em;
+
+  padding: 0.35em 0.8em;
+
+  box-sizing: border-box;
+}
+
+
+/* Corpo dos blocos */
+.orangeblock .block-body,
+.blueblock .block-body {
+  padding: 0.6em 0.9em;
+
+  font-size: 0.75em;
+  line-height: 1.3;
+
+  flex: 1;
+
+  box-sizing: border-box;
+
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+
+/* Bloco laranja */
+.orangeblock .block-title {
+  background: $orange;
+}
+
+.orangeblock .block-body {
+  background: $orange-light;
+}
+
+
+/* Bloco azul */
+.blueblock .block-title {
+  background: $blue;
+}
+
+.blueblock .block-body {
+  background: $blue-light;
+}
+
+
+/* Marcadores dentro do bloco azul */
+.blueblock .block-body ul > li::before {
+  content: "▸";
+
+  color: $orange;
+
+  font-size: 0.9em;
+  top: 0.15em;
+}
+
+
+/* =========================================================
+   LINKS, CITAÇÕES E EQUAÇÕES
+   ========================================================= */
+
+.reveal a {
+  color: $bluelight;
+}
+
+
+.reveal .citation {
+  color: $blue;
+}
+
+
+.reveal .math.display {
+  font-size: 0.8em;
+}
+
+
+/* =========================================================
+   IMAGENS E LEGENDAS
+   ========================================================= */
+
+.img-box {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+
+  height: 100%;
+}
+
+
+.img-box p {
+  margin: 0;
+  text-align: center;
+}
+
+
+/* Imagem usada ao lado de texto */
+.img-lado {
+  display: inline-block;
+
+  max-width: 100%;
+  max-height: 260px;
+
+  width: auto;
+  height: auto;
+}
+
+
+/* Imagem abaixo dos blocos */
+.img-box-below {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  margin-top: 0.6em;
+}
+
+
+.img-box-below > p,
+.img-box-below > figure {
+  width: 100%;
+
+  margin: 0;
+
+  text-align: center !important;
+}
+
+
+.img-box-below img,
+.img-below {
+  display: block !important;
+
+  margin-left: auto !important;
+  margin-right: auto !important;
+
+  max-width: 45%;
+  max-height: 180px;
+
+  width: auto;
+  height: auto;
+}
+
+
+/* Legenda das imagens */
+.img-caption {
+  margin-top: 0.35em;
+
+  font-size: 0.70em;
+
+  color: #555;
+
+  line-height: 1.2;
+
+  text-align: center;
+
+  max-width: 100%;
+}
+
+
+/* Imagem maior */
+.img-box-big {
+  width: 100%;
+
+  text-align: center;
+
+  margin-top: 0.3em;
+}
+
+
+.img-box-big > p,
+.img-box-big > figure {
+  width: 100%;
+
+  margin: 0;
+
+  text-align: center !important;
+}
+
+
+.img-big {
+  display: block !important;
+
+  margin-left: auto !important;
+  margin-right: auto !important;
+
+  width: 65%;
+  max-width: 65%;
+
+  max-height: none;
+  height: auto;
+}
+
+
+/* =========================================================
+   BLOCOS / SLIDES ESPECIAIS
+   ========================================================= */
+
+/* Texto central em slides especiais */
+.framecard {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  height: 80%;
+
+  font-size: 2em;
+  font-weight: bold;
+
+  color: white;
+
+  text-align: center;
+}
+
+
+/* Texto sobre foto */
+.pic-text {
+  position: absolute;
+
+  bottom: 1.5em;
+  left: 1em;
+
+  color: $blue;
+
+  font-weight: bold;
+  font-size: 1.4em;
+
+  text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.85);
+}
+
+
+/* Bloco branco usado em colunas */
+.beamerbox {
+  padding: 0.8em 1em;
+
+  border: 1px solid #ffffff;
+  border-radius: 6px;
+
+  background: #ffffff;
+
+  min-height: 8em;
+
+  box-sizing: border-box;
+}
+
+
+/* Texto do bloco direito */
+.bloco-direito {
+  font-size: 0.8em !important;
+  line-height: 1.3;
+}
+
+
+/* Texto introdutório do slide */
+.texto-intro-slide {
+  font-size: 0.8em;
+  line-height: 1.25;
+
+  color: #000;
+
+  margin-top: -0.2em;
+  margin-bottom: 0.9em;
+
+  max-width: 95%;
+}
+
+
+.texto-intro-slide p {
+  margin: 0 !important;
+}
+
+
+/* =========================================================
+   REFERÊNCIAS
+   ========================================================= */
+
+/*
+  O Quarto adiciona .smaller ao slide bibliográfico.
+  Esta regra neutraliza a redução automática apenas
+  no slide com id="slide-referencias".
+*/
+.reveal .slides section#slide-referencias.smaller {
+  font-size: 1em !important;
+}
+
+
+/* Tamanho e alinhamento da bibliografia */
+.reveal #slide-referencias #refs {
+  font-size: 0.85em;
+
+  line-height: 1.25;
+
+  text-align: justify;
+}
+
+
+/* Espaço entre referências */
+.reveal #slide-referencias #refs .csl-entry {
+  margin-bottom: 0.7em;
+
+  text-align: justify;
+}
+
+
+/* =========================================================
+   NÚMERO DO SLIDE — HTML
+   ========================================================= */
+
+.reveal .slide-number {
+  --pie-progress: 0%;
+
+  position: fixed !important;
+
+  right: 12px !important;
+  bottom: 12px !important;
+
+  top: auto !important;
+  left: auto !important;
+
+  z-index: 50 !important;
+
+  width: 32px !important;
+  height: 32px !important;
+
+  border-radius: 50% !important;
+
+  display: flex !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  background: conic-gradient(
+    from -90deg,
+    rgba(204, 102, 47, 0.65) 0 var(--pie-progress),
+    #e6e6e6 var(--pie-progress) 100%
+  ) !important;
+
+  color: $blue !important;
+
+  font-size: 0.52em !important;
+  font-weight: bold !important;
+
+  line-height: 1 !important;
+
+  padding: 0 !important;
+
+  border: none !important;
+
+  box-shadow: none !important;
+}
+
+
+/* =========================================================
+   PDF / PRINT VIEW
+   ========================================================= */
+
+/* Preserva o logo grande da capa no PDF */
+@media print {
+  html.print-pdf .reveal #title-slide::before {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+
+/* Preserva cores e fundos */
+@media print {
+
+  html.print-pdf,
+  html.print-pdf body,
+  html.print-pdf .reveal {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+
+  /* Mantém título laranja e barra azul no PDF */
+  html.print-pdf .reveal .slides section:not(#title-slide) > h2 {
+    color: $orange !important;
+  }
+
+
+  html.print-pdf .reveal .slides section:not(#title-slide) > h2::before {
+    content: "" !important;
+
+    display: block !important;
+
+    background-color: $blue !important;
+  }
+
+
+  /* Mantém os bullets laranja */
+  html.print-pdf .reveal ul > li::before,
+  html.print-pdf .reveal ul ul > li::before {
+    color: $orange !important;
+  }
+
+
+  /* Mantém links azuis */
+  html.print-pdf .reveal a {
+    color: $bluelight !important;
+  }
+
+
+  /* Mantém fundo e borda dos chunks */
+  html.print-pdf .reveal div.sourceCode {
+    background-color: $code-block-bg !important;
+    border-color: $code-block-border-color !important;
+  }
+
+
+  /* Remove speaker notes do PDF */
+  html.print-pdf .speaker-notes,
+  html.print-pdf .reveal .speaker-notes {
+    display: none !important;
+  }
+}
+
+
+/* Esconde a numeração padrão do Reveal no PDF */
+html.print-pdf .reveal .slide-number,
+.print-pdf .reveal .slide-number {
+  display: none !important;
+}
+
+
+/* =========================================================
+   PDF — PIZZA ESTÁTICA CRIADA PELO custom.js
+   ========================================================= */
+
+html.print-pdf .reveal .slides section .pdf-pie-number {
+  --pie-progress: 0%;
+
+  display: flex !important;
+  position: absolute !important;
+
+  /* posição no slide */
+  top: 675px !important;      // menor = sobe
+  left: 1045px !important;    // maior = direita
+
+  right: auto !important;
+  bottom: auto !important;
+
+  z-index: 9999 !important;
+
+  /* tamanho da pizza */
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
+
+  border-radius: 50% !important;
+  box-sizing: border-box !important;
+
+  /* centraliza o número */
+  align-items: center !important;
+  justify-content: center !important;
+
+  /* preenchimento da pizza */
+  background: conic-gradient(
+    from -90deg,
+    rgba(204, 102, 47, 0.65) 0 var(--pie-progress),
+    #e6e6e6 var(--pie-progress) 100%
+  ) !important;
+
+  /* número */
+  color: $blue !important;
+  font-size: 15px !important;
+  font-weight: bold !important;
+  line-height: 1 !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* =========================================================
+   PDF — EVITA CORTE DA PIZZA NO SLIDE DE REFERÊNCIAS
+   ========================================================= */
+
+@media print {
+  html.print-pdf .reveal .slides section#slide-referencias {
+    overflow: visible !important;
+  }
+}
+
+/* =========================================================
+   SLIDES COM FUNDO COLORIDO
+   ========================================================= */
+
+/*
+  Centraliza o título apenas verticalmente,
+  mantendo alinhamento horizontal à esquerda.
+*/
+.reveal .slides section.slide-divisor > h1 {
+  position: absolute;
+
+  top: 50%;
+  left: 5%;
+
+  transform: translateY(-50%);
+
+  width: 90%;
+
+  margin: 0 !important;
+
+  color: white !important;
+
+  font-size: 1.5em;
+  font-weight: 700;
+
+  text-align: left;
+
+  line-height: 1.2;
+}

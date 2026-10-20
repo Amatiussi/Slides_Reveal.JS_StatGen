@@ -1,0 +1,660 @@
+/*
+  Organização:
+  1. Variáveis gerais em scss:defaults
+  2. Regras por componente em scss:rules
+  3. Ajustes específicos de impressão/PDF no final
+
+  Para alterar cores globalmente: mudar $orange, $blue e $bluelight no início,
+*/
+
+/*-- scss:defaults --*/
+
+/* =========================================================
+   PALETA E TIPOGRAFIA
+   ========================================================= */
+
+$orange:       #cc662f;                 // laranja principal: títulos, bullets e destaques
+$blue:         #003350;                 // azul-marinho principal
+$bluelight:    #2e96bd;                 // azul-claro: links
+$orange-light: rgba(204, 102, 47, 0.12); // fundo suave dos blocos laranja
+$blue-light:   rgba(0, 51, 80, 0.10);   // fundo suave dos blocos azuis
+
+$body-bg:                      #ffffff;    // fundo geral dos slides
+$body-color:                   #212121;    // cor padrão do texto
+$link-color:                   $bluelight; // cor padrão de links
+$presentation-heading-color:   $orange;    // cor-base dos headings
+$font-family-sans-serif:       Calibri;    // fonte principal
+$presentation-font-size-root:  30px;       // tamanho-base da apresentação
+$presentation-h1-font-size:    1.5em;
+$presentation-h2-font-size:    1.5em;
+$presentation-h3-font-size:    1em;
+
+$code-block-bg:                #f2f2f2; // fundo cinza-claro dos chunks
+$code-block-border-color:      #d0d0d0; // borda dos chunks
+
+
+/*-- scss:rules --*/
+
+/* =========================================================
+   CAPA MANUAL
+   ========================================================= */
+
+.reveal .slides section.capa {
+  height: 100vh !important;
+  min-height: 100vh !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.reveal .slides section.capa .logo-capa {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  z-index: 20;
+}
+
+.reveal .slides section.capa .logo-capa img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.reveal .slides section.capa .capa-titulo {
+  position: absolute;
+  top: 260px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 75%;
+  text-align: center;
+  color: $orange;
+  font-size: 1.3em;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.reveal .slides section.capa .capa-subtitulo {
+  position: absolute;
+  top: 380px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  text-align: center;
+  color: $blue;
+  font-size: 0.8em;
+  line-height: 1.3;
+}
+
+.reveal .slides section.capa .capa-autores {
+  position: absolute;
+  top: 500px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  text-align: center;
+  color: $blue;
+  font-size: 0.95em;
+}
+
+.reveal .slides section.capa > h2 {
+  display: none;
+}
+
+
+/* =========================================================
+   LOGO FIXA
+   ========================================================= */
+
+.reveal .slide-logo {
+  position: fixed !important;
+  top: 8px !important;
+  right: 8px !important;
+  bottom: auto !important;
+  left: auto !important;
+  max-height: 58px !important; // tamanho máximo do logo nos slides
+  margin: 0 !important;
+  z-index: 50 !important;
+}
+
+
+/* =========================================================
+   TÍTULOS DOS SLIDES
+   ========================================================= */
+
+.reveal .slides section:not(.capa) > h2 {
+  color: $orange !important;
+  font-weight: 700;
+  font-size: 1.3em;             // tamanho do título dos slides
+  margin: 0 0 1.5em 0;          // espaço abaixo do título
+  padding: 0.25em 0.5em 0.25em 1.1em;
+  position: relative;
+  line-height: 1.2;
+}
+
+.reveal .slides section:not(.capa) > h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -0.35em;
+  bottom: -0.35em;
+  width: 18px;         // espessura da barra azul
+  background-color: $blue !important;
+}
+
+
+/* =========================================================
+   SUBTÍTULO LOGO ABAIXO DO TÍTULO
+   ========================================================= */
+
+.reveal .slides section:not(.capa) > h2:has(+ .slide-subtitle) {
+  margin-bottom: 0.05em !important;
+}
+
+.reveal .slides section:not(.capa) > h2 + .slide-subtitle {
+  color: $blue;
+  font-size: 0.6em;
+  font-weight: 600;
+  font-style: italic;
+  margin-top: 0 !important;
+  margin-bottom: 2em !important;
+  padding-left: 48px;
+  line-height: 1.2;
+}
+
+.reveal .slides section:not(.capa) > h2 + .slide-subtitle p {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+
+/* =========================================================
+   LISTAS
+   ========================================================= */
+
+.reveal ul,
+.reveal ul ul {
+  list-style: none !important;
+  padding-left: 1.6em;
+  margin: 0.25em 0;
+}
+
+.reveal ul li,
+.reveal ul ul li {
+  position: relative;
+  margin: 0.22em 0;
+  list-style-type: none !important;
+}
+
+.reveal ul li::marker,
+.reveal ul ul li::marker {
+  content: "";
+}
+
+.reveal ul > li::before {
+  content: "▶";
+  color: $orange;
+  font-size: 0.55em;
+  position: absolute;
+  left: -1.5em;
+  top: 0.35em;
+}
+
+.reveal ul ul {
+  margin-top: 0.15em;
+  padding-left: 1.3em;
+}
+
+.reveal ul ul > li {
+  font-size: 0.9em;
+  line-height: 1.25;
+}
+
+.reveal ul ul > li::before {
+  content: "▸";
+  color: $orange;
+  font-size: 0.5em;
+  position: absolute;
+  left: -1.3em;
+  top: 0.32em;
+}
+
+
+/* =========================================================
+   CÓDIGO
+   ========================================================= */
+
+.reveal div.sourceCode {
+  background-color: $code-block-bg !important;
+  border: 1px solid $code-block-border-color;
+  border-radius: 4px;
+  width: 92%;          // largura do chunk
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.reveal div.sourceCode pre.sourceCode {
+  background-color: transparent !important;
+  font-size: 0.5em;      // tamanho da fonte dentro do código
+  padding: 0.5em 0.7em;    // espaço interno do chunk
+  margin: 0;
+}
+
+/* Botão de código recolhível */
+.reveal details.code-fold > summary,
+.reveal details.code-fold > summary::marker {
+  color: $orange !important;
+}
+
+
+/* =========================================================
+   CORES UTILITÁRIAS
+   ========================================================= */
+
+.orange   { color: $orange; }
+.blue     { color: $blue; }
+.verde    { color: green; }
+.vermelho { color: red; }
+
+
+/* =========================================================
+   COLUNAS
+   ========================================================= */
+
+.reveal .columns {
+  gap: 24px;
+  align-items: stretch;
+}
+
+.reveal .columns.equal-blocks {
+  display: flex;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.reveal .columns.equal-blocks > .column {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* =========================================================
+   BLOCOS LARANJA E AZUL
+   ========================================================= */
+
+.orangeblock,
+.blueblock {
+  margin: 0.3em 1.5em;
+  border-radius: 2px;
+  overflow: hidden;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.orangeblock .block-title,
+.blueblock .block-title {
+  color: white;
+  font-weight: bold;
+  font-size: 0.75em;
+  padding: 0.35em 0.8em;
+  box-sizing: border-box;
+}
+
+.orangeblock .block-body,
+.blueblock .block-body {
+  padding: 0.6em 0.9em;
+  font-size: 0.75em;
+  line-height: 1.3;
+  flex: 1;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.orangeblock .block-title { background: $orange; }
+.orangeblock .block-body  { background: $orange-light; }
+
+.blueblock .block-title { background: $blue; }
+.blueblock .block-body  { background: $blue-light; }
+
+.blueblock .block-body ul > li::before {
+  content: "▸";
+  color: $orange;
+  font-size: 0.9em;
+  top: 0.15em;
+}
+
+
+/* =========================================================
+   LINKS, CITAÇÕES E EQUAÇÕES
+   ========================================================= */
+
+.reveal a {
+  color: $bluelight;
+}
+
+.reveal .citation {
+  color: $blue;
+}
+
+.reveal .math.display {
+  font-size: 0.8em;
+}
+
+
+/* =========================================================
+   IMAGENS E LEGENDAS
+   ========================================================= */
+
+.img-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.img-box p {
+  margin: 0;
+  text-align: center;
+}
+
+.img-lado {
+  display: inline-block;
+  max-width: 100%;
+  max-height: 260px;
+  width: auto;
+  height: auto;
+}
+
+.img-box-below {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.6em;
+}
+
+.img-box-below > p,
+.img-box-below > figure {
+  width: 100%;
+  margin: 0;
+  text-align: center !important;
+}
+
+.img-box-below img,
+.img-below {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  max-width: 45%;
+  max-height: 180px;
+  width: auto;
+  height: auto;
+}
+
+.img-caption {
+  margin-top: 0.35em;
+  font-size: 0.70em;
+  color: #555;
+  line-height: 1.2;
+  text-align: center;
+  max-width: 100%;
+}
+
+.img-box-big {
+  width: 100%;
+  text-align: center;
+  margin-top: 0.3em;
+}
+
+.img-box-big > p,
+.img-box-big > figure {
+  width: 100%;
+  margin: 0;
+  text-align: center !important;
+}
+
+.img-big {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 65%;
+  max-width: 65%;
+  max-height: none;
+  height: auto;
+}
+
+
+/* =========================================================
+   BLOCOS/SLIDES ESPECIAIS
+   ========================================================= */
+
+.framecard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+  font-size: 2em;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+
+.pic-text {
+  position: absolute;
+  bottom: 1.5em;
+  left: 1em;
+  color: $blue;
+  font-weight: bold;
+  font-size: 1.4em;
+  text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.85);
+}
+
+.beamerbox {
+  padding: 0.8em 1em;
+  border: 1px solid #ffffff;
+  border-radius: 6px;
+  background: #ffffff;
+  min-height: 8em;
+  box-sizing: border-box;
+}
+
+.bloco-direito {
+  font-size: 0.8em !important;
+  line-height: 1.3;
+}
+
+.texto-intro-slide {
+  font-size: 0.8em;
+  line-height: 1.25;
+  color: #000;
+  margin-top: -0.2em;
+  margin-bottom: 0.9em;
+  max-width: 95%;
+}
+
+.texto-intro-slide p {
+  margin: 0 !important;
+}
+
+
+/* =========================================================
+   REFERÊNCIAS
+   ========================================================= */
+
+/* O Quarto adiciona .smaller ao slide bibliográfico; neutraliza isso
+   apenas no slide que tiver id="slide-referencias". */
+.reveal .slides section#slide-referencias.smaller {
+  font-size: 1em !important;
+}
+
+.reveal #slide-referencias #refs {
+  font-size: 0.85em;   // tamanho apenas das referências
+  line-height: 1.25;
+  text-align: justify;   // justifica a bibliografia
+}
+
+.reveal #slide-referencias #refs .csl-entry {
+  margin-bottom: 0.7em; // espaço entre referências
+  text-align: justify;
+}
+
+
+/* =========================================================
+   NÚMERO DO SLIDE — HTML
+   ========================================================= */
+
+.reveal .slide-number {
+  --pie-progress: 0%;
+
+  position: fixed !important;
+  right: 12px !important;
+  bottom: 12px !important;
+  top: auto !important;
+  left: auto !important;
+  z-index: 50 !important;
+
+  width: 32px !important;  // diâmetro do círculo
+  height: 32px !important;
+  border-radius: 50% !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  background: conic-gradient(
+    from -90deg,
+    rgba(204, 102, 47, 0.65) 0 var(--pie-progress),
+    #e6e6e6 var(--pie-progress) 100%
+  ) !important;
+
+  color: $blue !important;
+  font-size: 0.52em !important;
+  font-weight: bold !important;
+  line-height: 1 !important;
+
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+
+/* =========================================================
+   PDF / PRINT VIEW
+   ========================================================= */
+
+/* Força o navegador a preservar as cores e fundos do tema. */
+@media print {
+  html.print-pdf,
+  html.print-pdf body,
+  html.print-pdf .reveal {
+    -webkit-print-color-adjust: exact !important; // Chrome/Edge: preserva cores
+    print-color-adjust: exact !important;         // padrão CSS equivalente
+  }
+
+  /* Mantém título laranja e barra azul no PDF. */
+  html.print-pdf .reveal .slides section:not(.capa) > h2 {
+    color: $orange !important;
+  }
+
+  html.print-pdf .reveal .slides section:not(.capa) > h2::before {
+    content: "" !important;
+    display: block !important;
+    background-color: $blue !important;
+  }
+
+  /* Mantém cores de listas, links e chunks. */
+  html.print-pdf .reveal ul > li::before,
+  html.print-pdf .reveal ul ul > li::before {
+    color: $orange !important;
+  }
+
+  html.print-pdf .reveal a {
+    color: $bluelight !important;
+  }
+
+  html.print-pdf .reveal div.sourceCode {
+    background-color: $code-block-bg !important;
+    border-color: $code-block-border-color !important;
+  }
+
+  /* Evita caixa de speaker notes no PDF. */
+  html.print-pdf .speaker-notes,
+  html.print-pdf .reveal .speaker-notes {
+    display: none !important;
+  }
+}
+
+/* Esconde a numeração padrão do Reveal no PDF. */
+html.print-pdf .reveal .slide-number,
+.print-pdf .reveal .slide-number {
+  display: none !important;
+}
+
+
+/* =========================================================
+   PDF — PIZZA ESTÁTICA CRIADA PELO custom.js
+   ========================================================= */
+
+html.print-pdf .reveal .slides section .pdf-pie-number {
+  --pie-progress: 0%;
+
+  display: flex !important;
+  position: absolute !important;
+
+  /* posição no slide */
+  top: 675px !important;      // menor = sobe
+  left: 1045px !important;    // maior = direita
+
+  right: auto !important;
+  bottom: auto !important;
+
+  z-index: 9999 !important;
+
+  /* tamanho da pizza */
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
+
+  border-radius: 50% !important;
+  box-sizing: border-box !important;
+
+  /* centraliza o número */
+  align-items: center !important;
+  justify-content: center !important;
+
+  /* preenchimento da pizza */
+  background: conic-gradient(
+    from -90deg,
+    rgba(204, 102, 47, 0.65) 0 var(--pie-progress),
+    #e6e6e6 var(--pie-progress) 100%
+  ) !important;
+
+  /* número */
+  color: $blue !important;
+  font-size: 15px !important;
+  font-weight: bold !important;
+  line-height: 1 !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* =========================================================
+   PDF — EVITA CORTE DA PIZZA NO SLIDE DE REFERÊNCIAS
+   ========================================================= */
+
+@media print {
+  html.print-pdf .reveal .slides section#slide-referencias {
+    overflow: visible !important;
+  }
+}
